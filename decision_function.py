@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 
-test_data = pd.read_csv("world_classifiedvaldata.csv") #read in data from text file
+test_data = pd.read_csv("classifieddatafilename.csv") #read in data from text file
 test_data=test_data.drop(['Unnamed: 0'],axis=1)
 print(test_data)
 
@@ -21,7 +21,7 @@ plt.hist(fs.scores.values.flatten(), bins=100,
 plt.hist(fb.scores.values.flatten(), bins=100,
 		label='False Background', alpha=.5)
 plt.yscale('log')
-plt.title('Boulby World Background Classifier (validation)')
+plt.title('[Source] Background Classifier')
 plt.legend(loc='best')
 plt.xlabel('Decision scores')
 plt.ylabel('Frequency (log)')
