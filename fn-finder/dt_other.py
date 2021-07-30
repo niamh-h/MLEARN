@@ -4,16 +4,16 @@ from matplotlib import pyplot as plt
 import sys
 import readline
 #read in data from voting classifier
-data = pd.read_csv("/mnt/c/Users/Niamh/Documents/SummerJob/data/22m_gdwbls/hf_uncal_clf/22wbls_clfclfdata.csv")
+data = pd.read_csv("/path/to/file")
 data = data.drop(['Unnamed: 0'],axis=1)
 
-#keep only what's classified as signal
+#keep only what's classified as 'not fast neutrons'
 ts = data.loc[(data.classifier==0) & (data.label==0)]
 fs = data.loc[(data.classifier==0) & (data.label==1)]
 li9 = ts.loc[ts.source==3].shape[0]
 n17 = ts.loc[ts.source==4].shape[0]
 world = ts.loc[ts.source==5].shape[0]
-neu = fs.shape[0]
+neu = fs.shape[0] 
 geo = ts.loc[ts.source==7].shape[0]
 print('li9 ',li9, '\nn17 ', n17, '\nworld ', world, '\ngeoneutrinos ', geo, '\nneutrons ', neu)
 signal = ts.loc[ts.source==1].shape[0]
@@ -107,7 +107,7 @@ else:
 	print('Unknown detector set-up, please add rates to script')
 	sys.exit()
 
-#new rates from likelihood
+#new rates after likelihood analysis
 r_li9 = r_li9 * (g_li9/t_li9)
 r_n17 = r_n17 * (g_n17/t_n17)
 r_neu = r_neu * (g_neu/t_neu)
@@ -128,14 +128,14 @@ elif sigsource =='t+h':
 	r_world = r_worlda
 	r_hey = r_hey2 * (g_hey/t_hey)
 #efficiency of model on each source
-e_li9 = 1
+e_li9 = 1 #assumed all other sources are kept (not mistaken for fast neutrons
 e_n17 = 1
-e_neu = (neu/t_neu)
+e_neu = (neu/t_neu) #only neutrons is different as only a fast neutron finder is being implemented
 e_world = 1
 e_sig =  1
 e_geo = 1
 print('\n\ne_li9: ', e_li9, '\ne_n17: ', e_n17, '\ne_neu: ',e_neu, '\ne_world: ', e_world, '\ne_sig: ', e_sig, '\ne_geo: ' , e_geo)
-#efficiency * rate
+#efficiency * rate = rate after classification
 b_li9 = e_li9 * r_li9
 b_n17 = e_n17 * r_n17
 b_neu = e_neu * r_neu
