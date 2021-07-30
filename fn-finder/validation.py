@@ -13,7 +13,7 @@ data2.columns = ['n9', 'n9_prev', 'dt_prev_us', 'inner_hit', 'inner_hit_prev', '
                 'beta_three_prev', 'beta_four', 'beta_four_prev', 'beta_five', 'beta_five_prev', 'beta_six', 'beta_six_prev', 'good_pos', 'good_pos_prev', 'closestPMT']
 df2 = pd.DataFrame(data2)
 df2['label'] = 0
-df2['source'] = 3 
+df2['source'] = 3 #label the specific source of each data point
 
 data3 = pd.read_csv('/path/to/n17/txt/file', sep= " ", header=None)
 data3.columns = ['n9', 'n9_prev', 'dt_prev_us', 'inner_hit', 'inner_hit_prev', 'beta_one', 'beta_one_prev', 'beta_two', 'beta_two_prev', 'beta_three',
@@ -41,7 +41,7 @@ datah.columns = ["n9", "n9_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "
                 "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT"]
 dfh = pd.DataFrame(datah)
 dfh['label'] = 0
-dfh['source'] = 1
+dfh['source'] = 1 #1 always = signal, so this will change
 
 data6 = pd.read_csv('/path/to/fn/txt/file', sep= " ", header=None)
 data6.columns = ['n9', 'n9_prev', 'dt_prev_us', 'inner_hit', 'inner_hit_prev', 'beta_one', 'beta_one_prev', 'beta_two', 'beta_two_prev', 'beta_three',
@@ -62,7 +62,7 @@ data8.columns = ["n9", "n9_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "
                 "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT"]
 df8 = pd.DataFrame(data8)
 df8['label'] = 0
-df8['source'] = 1
+df8['source'] = 1 #either heysham full OR heysham 2 should be used at once
 
 frames = [df2, df3, df5, dft, df7, dfh]
 X = df6.append(frames, ignore_index=True)
