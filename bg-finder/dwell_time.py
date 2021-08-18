@@ -4,16 +4,24 @@ from matplotlib import pyplot as plt
 import sys
 import readline
 #read in data from voting classifier
-data = pd.read_csv("/path/to/file")
+data = pd.read_csv("/mnt/c/Users/Niamh/Documents/SummerJob/data/16m_gdwbls/h2_uncal_clf/combine/li916wbls_clfclfdata.csv")
 data = data.drop(['Unnamed: 0'],axis=1)
+print(data)
 
-#keep only what's classified as 'not fast neutrons'
-ts = data.loc[(data.classifier==0) & (data.label==0)]
-fs = data.loc[(data.classifier==0) & (data.label==1)]
-li9 = ts.loc[ts.source==3].shape[0]
+#keep only what's classified as signal
+ts = data.loc[(data.li9_classifier==0) & (data.label==0)]
+fs = data.loc[(data.li9_classifier==0) & (data.label==1)]
+fb = data.loc[(data.li9_classifier==1) & (data.label ==0)]
+tb = data.loc[(data.li9_classifier==1)  & (data.label == 1)]
+print('fb, n17: ', fb.loc[fb.source==4].shape[0])
+print('fb, world: ', fb.loc[fb.source==5].shape[0])
+print('fb, geo: ', fb.loc[fb.source==7].shape[0])
+print('fb, signal: ', fb.loc[fb.source==1].shape[0], '\n')
+print('tb, li9: ', tb.shape[0], '\n')
+li9 = fs.shape[0] #ts.loc[ts.source==3].shape[0]
 n17 = ts.loc[ts.source==4].shape[0]
 world = ts.loc[ts.source==5].shape[0]
-neu = fs.shape[0] 
+neu = ts.loc[ts.source==6].shape[0]
 geo = ts.loc[ts.source==7].shape[0]
 print('li9 ',li9, '\nn17 ', n17, '\nworld ', world, '\ngeoneutrinos ', geo, '\nneutrons ', neu)
 signal = ts.loc[ts.source==1].shape[0]
@@ -30,18 +38,18 @@ t_hey=float(t_hey)
 t_geo=float(t_geo)
 t_tor=float(t_tor)
 #getentries
-g_li9,g_n17,g_neu,g_world,g_hey,g_geo,g_tor=input('Enter GetEntries for li9, n17, neu, world, heysham (2 or full), geo, tor: ').split(', ')
-g_li9=float(g_li9)
-g_n17=float(g_n17)
-g_neu=float(g_neu)
-g_world=float(g_world)
-g_hey=float(g_hey)
-g_geo=float(g_geo)
-g_tor=float(g_tor)
+#g_li9,g_n17,g_neu,g_world,g_hey,g_geo,g_tor=input('Enter GetEntries for li9, n17, neu, world, heysham (2 or full), geo, tor: ').split(', ')
+#g_li9=float(g_li9)
+#g_n17=float(g_n17)
+#g_neu=float(g_neu)
+#g_world=float(g_world)
+#g_hey=float(g_hey)
+#g_geo=float(g_geo)
+#g_tor=float(g_tor)
 
 if (tanksize == 16):
-	r_li9 = 4.0600e-06 * 86400 #(seconds in a day) 
-	r_n17 = 4.0800e-06 * 86400
+	r_li9 = 1.25e-05 * 86400 #(seconds in a day) 
+	r_n17 = 7.64e-06 * 86400
 	r_neu = 1.849e-02 * 86400
 	r_geo = 2.4480e-06 * 86400
 	r_worlda = 7.5470e-06 * 86400
@@ -51,20 +59,27 @@ if (tanksize == 16):
 	sigsource = input("Signal Source? (h2/t/t+h/hf): ")
 	if sigsource=='h2':
 		r_sig = r_hey2
-		g_sig = g_hey
+#		g_sig = g_hey
 		t_sig = t_hey
+		r_world = r_worlda + r_tor
+		t_world = t_world + t_tor
 	elif sigsource == 't':
 		r_sig = r_tor
-		g_sig = g_tor
+#		g_sig = g_tor
 		t_sig = t_tor
+		r_world = r_worlda + r_hey2
+		t_world = t_world + t_tor
 	elif sigsource == 't+h':
 		r_sig = r_tor + r_hey2
-		g_sig = g_tor + g_hey
+#		g_sig = g_tor + g_hey
 		t_sig = t_tor + t_hey
+		r_world = r_worlda
 	elif sigsource == 'hf':
 		r_sig = r_hey
-		g_sig = g_hey
+#		g_sig = g_hey
 		t_sig = t_hey
+		r_world = r_worlda + r_tor
+		t_world = t_world + t_tor
 	else:
 		print('Not calibrated for this signal source')
 		sys.exit()
@@ -72,8 +87,8 @@ if (tanksize == 16):
 	print('\nDaily Background Rates: ', '\nli9: ', r_li9, '\nn17: ', r_n17, '\nneutrons: ', r_neu,  '\nworlda: ', r_worlda)
 	print('geo: ', r_geo, '\ntor: ', r_tor, '\nhey: ', r_hey)
 elif (tanksize == 22):
-	r_li9 = 1.0560e-05 * 86400
-	r_n17 = 1.0610e-05 * 86400
+	r_li9 = 3.25e-05 * 86400
+	r_n17 = 1.99e-05 * 86400
 	r_neu = 3.217e-02 * 86400
 	r_geo = 6.3640e-06 * 86400
 	r_worlda = 1.9620e-05 * 86400
@@ -83,20 +98,27 @@ elif (tanksize == 22):
 	sigsource = input("Signal Source? (h2/t/t+h): ")
 	if sigsource=='h2':
 		r_sig = r_hey2
-		g_sig = g_hey
+#		g_sig = g_hey
 		t_sig = t_hey
+		r_world = r_worlda + r_tor
+		t_world = t_world + t_tor
 	elif sigsource=='t':
 		r_sig = r_tor
-		g_sig = g_tor
+#		g_sig = g_tor
 		t_sig = t_tor
+		r_world = r_worlda + r_hey2
+		t_world = t_world + t_hey
 	elif sigsource=='t+h':
 		r_sig = r_tor + r_hey2
-		g_sig = g_tor + g_hey
+#		g_sig = g_tor + g_hey
 		t_sig = t_tor + t_hey
+		r_world = r_worlda
 	elif sigsource == 'hf':
 		r_sig = r_hey
-		g_sig = g_hey
+#		g_sig = g_hey
 		t_sig = t_hey
+		r_world = r_worlda + r_tor
+		t_world = t_world + t_tor
 	else:
 		print('Not calibrated for this signal source')
 		sys.exit()
@@ -107,35 +129,38 @@ else:
 	print('Unknown detector set-up, please add rates to script')
 	sys.exit()
 
-#new rates after likelihood analysis
-r_li9 = r_li9 * (g_li9/t_li9)
-r_n17 = r_n17 * (g_n17/t_n17)
-r_neu = r_neu * (g_neu/t_neu)
-r_worlda = r_worlda * (g_world/t_world)
-r_sig = r_sig * (g_sig/t_sig)
-r_geo = r_geo * (g_geo/t_geo)
-r_tor = r_tor * (g_tor/t_tor)
-if sigsource =='h2':
-	r_world = r_worlda + r_tor
-	r_hey = r_hey2 * (g_hey/t_hey)
-elif sigsource == 'hf':
-	r_world = r_worlda + r_tor
-	r_hey = r_hey * (g_hey/t_hey)
-elif sigsource =='t':
-	r_hey = r_hey2 * (g_hey/t_hey)
-	r_world = r_worlda + r_hey
-elif sigsource =='t+h':
-	r_world = r_worlda
-	r_hey = r_hey2 * (g_hey/t_hey)
+#new rates from likelihood
+#r_li9 = r_li9 * (g_li9/t_li9)
+#r_n17 = r_n17 * (g_n17/t_n17)
+#r_neu = r_neu * (neu/t_neu)
+#r_worlda = r_worlda * (g_world/t_world)
+#r_sig = r_sig * (g_sig/t_sig)
+#r_geo = r_geo * (g_geo/t_geo)
+#r_tor = r_tor * (g_tor/t_tor)
+
 #efficiency of model on each source
-e_li9 = 1 #assumed all other sources are kept (not mistaken for fast neutrons
-e_n17 = 1
-e_neu = (neu/t_neu) #only neutrons is different as only a fast neutron finder is being implemented
-e_world = 1
-e_sig =  1
-e_geo = 1
+e_li9 = li9/t_li9
+e_n17 = n17/t_n17
+e_neu = neu/t_neu
+e_world = world/t_world
+e_sig = signal/t_sig
+e_geo = geo/t_geo
+
+#if sigsource =='h2':
+#	r_world = r_worlda + r_tor
+#	r_hey = r_hey2 * (g_hey/t_hey)
+#elif sigsource == 'hf':
+#	r_world = r_worlda + r_tor
+#	r_hey = r_hey * (g_hey/t_hey)
+#elif sigsource =='t':
+#	r_hey = r_hey2 * (g_hey/t_hey)
+#	r_world = r_worlda + r_hey
+#elif sigsource =='t+h':
+#	r_world = r_worlda
+#	r_hey = r_hey2 * (g_hey/t_hey)
+
 print('\n\ne_li9: ', e_li9, '\ne_n17: ', e_n17, '\ne_neu: ',e_neu, '\ne_world: ', e_world, '\ne_sig: ', e_sig, '\ne_geo: ' , e_geo)
-#efficiency * rate = rate after classification
+#efficiency * rate
 b_li9 = e_li9 * r_li9
 b_n17 = e_n17 * r_n17
 b_neu = e_neu * r_neu
