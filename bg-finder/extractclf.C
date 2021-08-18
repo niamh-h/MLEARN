@@ -10,7 +10,7 @@ using namespace std;
 void extract::Loop()
 {
 //My macro to extract the data
-        TFile *f=new TFile("heysham_2_classified.root");
+        TFile *f=new TFile("/path/to/heysham_2_file.root");
         TTree *tr=(TTree*)f->Get("data;1");
 
         Double_t a, b, d, g, h, j, k, l,m, n, o, p, q, r, s, t, u, v, w, z;
@@ -40,14 +40,14 @@ void extract::Loop()
 	tr->SetBranchAddress("drPrevr", &z);
 
         ofstream file1;
-        file1.open("/data/niamhholland/ML_project/22m_gdwbls/22m_gdwbls/h2_uncal_clf/heysham2_clfData.txt");
+        file1.open("/path/to/heysham_2_file.txt");
         for (Int_t i=0; i<tr->GetEntries(); i++){
                 tr->GetEntry(i);
                 file1 << a << " " << b << " " << d << " " << c << " " << e << " " << g << " " << h << " " << j << " " << k << " " << l << " " << m << " " << n << " " << o << " " << p << " " << q << " " << r << " " << s << " " << t << " " << u << " " << v << " " << w << " " << z <<"\n";
 	}
 	file1.close();
 
-        TFile *f2=new TFile("torness_full_classified.root");
+        TFile *f2=new TFile("/path/to/torness_file.root");
         TTree *tr2=(TTree*)f2->Get("data;1");
 
         tr2->SetBranchAddress("n100",&a);
@@ -73,13 +73,13 @@ void extract::Loop()
         tr2->SetBranchAddress("closestPMT_prev", &w);
         tr2->SetBranchAddress("drPrevr", &z);
         ofstream file2;
-        file2.open("/data/niamhholland/ML_project/22m_gdwbls/22m_gdwbls/h2_uncal_clf/tornessfull_clfData.txt");
+        file2.open("/path/to/torness_file.txt");
         for (Int_t i=0; i<tr2->GetEntries(); i++){
                 tr2->GetEntry(i);
 		file2 << a << " " << b << " " << d << " " << c << " " << e << " " << g << " " << h << " " << j << " " << k << " " << l << " " << m << " " << n << " " << o << " " << p << " " << q << " " << r << " " << s << " " << t << " " << u << " " << v << " " << w << " " << z <<"\n";
 	}
         file2.close();
-        TFile *f3=new TFile("world_classified.root");
+        TFile *f3=new TFile("/path/to/world_file.root");
         TTree *tr3=(TTree*)f3->Get("data;1");
         tr3->SetBranchAddress("n100",&a);
         tr3->SetBranchAddress("n100_prev",&b);
@@ -104,14 +104,14 @@ void extract::Loop()
         tr3->SetBranchAddress("closestPMT_prev", &w);
         tr3->SetBranchAddress("drPrevr", &z);
         ofstream file3;
-        file3.open("/data/niamhholland/ML_project/22m_gdwbls/22m_gdwbls/h2_uncal_clf/world_clfData.txt");
+        file3.open("/path/to/world_file.txt");
         for (Int_t i=0; i<tr3->GetEntries(); i++){
                 tr3->GetEntry(i);
                 file3 << a << " " << b << " " << d << " " << c << " " << e << " " << g << " " << h << " " << j << " " << k << " " << l << " " << m << " " << n << " " << o << " " << p << " " << q << " " << r << " " << s << " " << t << " " << u << " " << v << " " << w << " " << z <<"\n";
         }
         file3.close();
 
-        TFile *f4=new TFile("fn_classified.root");
+        TFile *f4=new TFile("/path/to/neutrons_file.root");
         TTree *tr4=(TTree*)f4->Get("data;1");
 
         tr4->SetBranchAddress("n100",&a);
@@ -137,13 +137,13 @@ void extract::Loop()
         tr4->SetBranchAddress("closestPMT_prev", &w);
         tr4->SetBranchAddress("drPrevr", &z);
        	ofstream file4;
-        file4.open("/data/niamhholland/ML_project/22m_gdwbls/22m_gdwbls/h2_uncal_clf/fn_clfData.txt");
+        file4.open("/path/to/neutrons_file.txt");
         for (Int_t i=0; i<tr4->GetEntries(); i++){
                 tr4->GetEntry(i);
                 file4 << a << " " << b << " " << d << " " << c << " " << e << " " << g << " " << h << " " << j << " " << k << " " << l << " " << m << " " << n << " " << o << " " << p << " " << q << " " << r << " " << s << " " << t << " " << u << " " << v << " " << w << " " << z <<"\n";
         }
         file4.close();
-        TFile *f5=new TFile("geo_classified.root");
+        TFile *f5=new TFile("/path/to/geoneutrinos_file.root");
         TTree *tr5=(TTree*)f5->Get("data;1");
         tr5->SetBranchAddress("n100",&a);
         tr5->SetBranchAddress("n100_prev",&b);
@@ -168,13 +168,13 @@ void extract::Loop()
         tr5->SetBranchAddress("closestPMT_prev", &w);
         tr5->SetBranchAddress("drPrevr", &z);
        	ofstream file5;
-        file5.open("/data/niamhholland/ML_project/22m_gdwbls/22m_gdwbls/h2_uncal_clf/geo_clfData.txt");
+        file5.open("/path/to/geoneutrinos_file.txt");
         for (Int_t i=0; i<tr5->GetEntries(); i++){
                 tr5->GetEntry(i);
                 file5 << a << " " << b << " " << d << " " << c << " " << e << " " << g << " " << h << " " << j << " " << k << " " << l << " " << m << " " << n << " " << o << " " << p << " " << q << " " << r << " " << s << " " << t << " " << u << " " << v << " " << w << " " << z <<"\n";
         }
         file5.close();
-        TFile *f6=new TFile("li9_classified.root");
+        TFile *f6=new TFile("/path/to/li9_file.root");
         TTree *tr6=(TTree*)f6->Get("data;1");
         tr6->SetBranchAddress("n100",&a);
         tr6->SetBranchAddress("n100_prev",&b);
@@ -199,13 +199,13 @@ void extract::Loop()
         tr6->SetBranchAddress("closestPMT_prev", &w);
         tr6->SetBranchAddress("drPrevr", &z);
        	ofstream file6;
-        file6.open("/data/niamhholland/ML_project/22m_gdwbls/22m_gdwbls/h2_uncal_clf/li9_clfData.txt");
+        file6.open("/path/to/li9_file.txt");
         for (Int_t i=0; i<tr6->GetEntries(); i++){
                 tr6->GetEntry(i);
                 file6 << a << " " << b << " " << d << " " << c << " " << e << " " << g << " " << h << " " << j << " " << k << " " << l << " " << m << " " << n << " " << o << " " << p << " " << q << " " << r << " " << s << " " << t << " " << u << " " << v << " " << w << " " << z <<"\n";
         }
         file6.close();
-        TFile *f7=new TFile("n17_classified.root");
+        TFile *f7=new TFile("/path/to/n17_file.root");
         TTree *tr7=(TTree*)f7->Get("data;1");
         tr7->SetBranchAddress("n100",&a);
         tr7->SetBranchAddress("n100_prev",&b);
@@ -230,7 +230,7 @@ void extract::Loop()
         tr7->SetBranchAddress("closestPMT_prev", &w);
         tr7->SetBranchAddress("drPrevr", &z);
        	ofstream file7;
-        file7.open("/data/niamhholland/ML_project/22m_gdwbls/22m_gdwbls/h2_uncal_clf/n17_clfData.txt");
+        file7.open("/path/to/n17_file.txt");
         for (Int_t i=0; i<tr7->GetEntries(); i++){
                 tr7->GetEntry(i);
                 file7 << a << " " << b << " " << d << " " << c << " " << e << " " << g << " " << h << " " << j << " " << k << " " << l << " " << m << " " << n << " " << o << " " << p << " " << q << " " << r << " " << s << " " << t << " " << u << " " << v << " " << w << " " << z <<"\n";
