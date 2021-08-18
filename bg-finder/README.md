@@ -1,4 +1,4 @@
-dwell_time.py : input the classified data, the size of the detector, the total MC and remaining events for each source. Specify the signal source from: heysham 2, 
+dwell_time.py : input the classified data, the size of the detector and the total MC. Specify the signal source from: heysham 2, 
                 heysham full, torness or torness+heysham 2. Outputs the daily rate of each source after classification and the time to get to 3sigma (dwell time). 
                 
 fn_finder.py : input data from the detector, outputs a trained fast neutron finder, an roc curve and confusion matrix. Outputs the classified test data to a csv file and the trained model to a .sav file.
