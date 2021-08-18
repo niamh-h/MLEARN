@@ -96,6 +96,6 @@ plt.title('ROC curve title')
 plt.savefig('/path/to/file')
 plt.show()
 #output the test data to a csv and save the trained model
-test_neu.to_csv('/mnt/c/Users/Niamh/Documents/SummerJob/data/16m_gdh20/hf_uncal_clf/16h20_clftestdata.csv')
-filename = '/mnt/c/Users/Niamh/Documents/SummerJob/data/16m_gdh20/hf_uncal_clf/fnfinder_16h20.sav'
+test_neu.to_csv('/path/to/file.csv')
+filename = '/path/to/file.sav'
 joblib.dump(neu_clf, filename)
