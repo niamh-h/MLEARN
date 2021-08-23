@@ -3,8 +3,8 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import sys
 import readline
-#read in data from combined file
-data = pd.read_csv("/path/to/file.csv")
+#read in data from voting classifier
+data = pd.read_csv("/mnt/c/Users/Niamh/Documents/SummerJob/data_v2/16m_wbls/li9_clf16wbls_tn.csv")
 data = data.drop(['Unnamed: 0'],axis=1)
 print(data)
 
@@ -18,7 +18,7 @@ print('fb, world: ', fb.loc[fb.source==5].shape[0])
 print('fb, geo: ', fb.loc[fb.source==7].shape[0])
 print('fb, signal: ', fb.loc[fb.source==1].shape[0], '\n')
 print('tb, li9: ', tb.shape[0], '\n')
-li9 = fs.shape[0]
+li9 = fs.shape[0] #ts.loc[ts.source==3].shape[0]
 n17 = ts.loc[ts.source==4].shape[0]
 world = ts.loc[ts.source==5].shape[0]
 neu = ts.loc[ts.source==6].shape[0]
@@ -26,7 +26,8 @@ geo = ts.loc[ts.source==7].shape[0]
 print('li9 ',li9, '\nn17 ', n17, '\nworld ', world, '\ngeoneutrinos ', geo, '\nneutrons ', neu)
 signal = ts.loc[ts.source==1].shape[0]
 print('signal ', signal)
-
+li9_6  = int(input("Input no. li9 events >6MeV: "))
+li9 = li9 - (2*li9_6)
 tanksize = int(input("Input tank size in m: "))
 t_li9,t_n17,t_neu,t_world,t_hey,t_geo,t_tor=input(
                 'Enter total simulated events for li9, n17, neutrons,  world, heysham (2 or full), geo, tor (in order): ').split(', ')
@@ -37,6 +38,15 @@ t_world=float(t_world)
 t_hey=float(t_hey)
 t_geo=float(t_geo)
 t_tor=float(t_tor)
+#getentries
+#g_li9,g_n17,g_neu,g_world,g_hey,g_geo,g_tor=input('Enter GetEntries for li9, n17, neu, world, heysham (2 or full), geo, tor: ').split(', ')
+#g_li9=float(g_li9)
+#g_n17=float(g_n17)
+#g_neu=float(g_neu)
+#g_world=float(g_world)
+#g_hey=float(g_hey)
+#g_geo=float(g_geo)
+#g_tor=float(g_tor)
 
 if (tanksize == 16):
 	r_li9 = 1.25e-05 * 86400 #(seconds in a day) 
@@ -50,20 +60,24 @@ if (tanksize == 16):
 	sigsource = input("Signal Source? (h2/t/t+h/hf): ")
 	if sigsource=='h2':
 		r_sig = r_hey2
+#		g_sig = g_hey
 		t_sig = t_hey
 		r_world = r_worlda + r_tor
 		t_world = t_world + t_tor
 	elif sigsource == 't':
 		r_sig = r_tor
+#		g_sig = g_tor
 		t_sig = t_tor
 		r_world = r_worlda + r_hey2
 		t_world = t_world + t_tor
 	elif sigsource == 't+h':
 		r_sig = r_tor + r_hey2
+#		g_sig = g_tor + g_hey
 		t_sig = t_tor + t_hey
 		r_world = r_worlda
 	elif sigsource == 'hf':
 		r_sig = r_hey
+#		g_sig = g_hey
 		t_sig = t_hey
 		r_world = r_worlda + r_tor
 		t_world = t_world + t_tor
@@ -85,32 +99,84 @@ elif (tanksize == 22):
 	sigsource = input("Signal Source? (h2/t/t+h): ")
 	if sigsource=='h2':
 		r_sig = r_hey2
+#		g_sig = g_hey
 		t_sig = t_hey
 		r_world = r_worlda + r_tor
 		t_world = t_world + t_tor
 	elif sigsource=='t':
 		r_sig = r_tor
+#		g_sig = g_tor
 		t_sig = t_tor
 		r_world = r_worlda + r_hey2
 		t_world = t_world + t_hey
 	elif sigsource=='t+h':
 		r_sig = r_tor + r_hey2
+#		g_sig = g_tor + g_hey
 		t_sig = t_tor + t_hey
 		r_world = r_worlda
 	elif sigsource == 'hf':
 		r_sig = r_hey
+#		g_sig = g_hey
+		t_sig = t_hey
+		r_world = r_worlda + r_tor
+		t_world = t_world + t_tor
+	else:
+                print('Not calibrated for this signal source')
+                sys.exit()
+	print('Tank size 22m, PSUP 9000mm: \n\nDaily Signal Rate: ', r_sig)
+	print('\nDaily Background Rates: ', '\nli9: ', r_li9, '\nn17: ', r_n17, '\nneutrons: ', r_neu, '\nworlda: ', r_worlda)
+	print('geo: ', r_geo, '\ntor: ', r_tor, '\nhey: ', r_hey, '\n\n')
+elif (tanksize == 28):
+	r_li9 = 6.70E-05 * 86400
+	r_n17 = 4.09E-05 * 86400
+	r_neu = 0.04962 * 86400
+	r_geo = 1.312E-05 * 86400
+	r_worlda = 4.044E-05 * 86400
+	r_tor = 9.108E-06 * 86400
+	r_hey2 = 1.421E-05 * 86400
+	r_hey = 2.514E-05 * 86400
+	sigsource = input("Signal Source? (h2/t/t+h): ")
+	if sigsource == 'h2':
+		r_sig = r_hey2
+#               g_sig = g_hey
+		t_sig = t_hey
+		r_world = r_worlda + r_tor
+		t_world = t_world + t_tor
+	elif sigsource=='t':
+		r_sig = r_tor
+#               g_sig = g_tor
+		t_sig = t_tor
+		r_world = r_worlda + r_hey2
+		t_world = t_world + t_hey
+	elif sigsource=='t+h':
+		r_sig = r_tor + r_hey2
+#               g_sig = g_tor + g_hey
+		t_sig = t_tor + t_hey
+		r_world = r_worlda
+	elif sigsource == 'hf':
+		r_sig = r_hey
+#              	g_sig = g_hey
 		t_sig = t_hey
 		r_world = r_worlda + r_tor
 		t_world = t_world + t_tor
 	else:
 		print('Not calibrated for this signal source')
 		sys.exit()
-	print('Tank size 22m, PSUP 9000mm: \n\nDaily Signal Rate: ', r_sig)
+	print('Tank size 28m, PSUP 9000mm: \n\nDaily Signal Rate: ', r_sig)
 	print('\nDaily Background Rates: ', '\nli9: ', r_li9, '\nn17: ', r_n17, '\nneutrons: ', r_neu, '\nworlda: ', r_worlda)
 	print('geo: ', r_geo, '\ntor: ', r_tor, '\nhey: ', r_hey, '\n\n')
 else:
 	print('Unknown detector set-up, please add rates to script')
 	sys.exit()
+
+#new rates from likelihood
+#r_li9 = r_li9 * (g_li9/t_li9)
+#r_n17 = r_n17 * (g_n17/t_n17)
+#r_neu = r_neu * (neu/t_neu)
+#r_worlda = r_worlda * (g_world/t_world)
+#r_sig = r_sig * (g_sig/t_sig)
+#r_geo = r_geo * (g_geo/t_geo)
+#r_tor = r_tor * (g_tor/t_tor)
 
 #efficiency of model on each source
 e_li9 = li9/t_li9
@@ -119,6 +185,19 @@ e_neu = neu/t_neu
 e_world = world/t_world
 e_sig = signal/t_sig
 e_geo = geo/t_geo
+
+#if sigsource =='h2':
+#	r_world = r_worlda + r_tor
+#	r_hey = r_hey2 * (g_hey/t_hey)
+#elif sigsource == 'hf':
+#	r_world = r_worlda + r_tor
+#	r_hey = r_hey * (g_hey/t_hey)
+#elif sigsource =='t':
+#	r_hey = r_hey2 * (g_hey/t_hey)
+#	r_world = r_worlda + r_hey
+#elif sigsource =='t+h':
+#	r_world = r_worlda
+#	r_hey = r_hey2 * (g_hey/t_hey)
 
 print('\n\ne_li9: ', e_li9, '\ne_n17: ', e_n17, '\ne_neu: ',e_neu, '\ne_world: ', e_world, '\ne_sig: ', e_sig, '\ne_geo: ' , e_geo)
 #efficiency * rate
