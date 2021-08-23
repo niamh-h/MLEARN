@@ -188,15 +188,11 @@ world_err = world_eff_err * r_world
 geo_err = geo_eff_err * r_geo
 sig_err = sig_eff_err * r_sig
 
-#print('li9 err: ', li9_err, '\nn17 err: ', n17_err, '\nneu err: ', neu_err, '\nworld err: ', world_err, '\nsmall err: ', small_err, '\nbig err: ', big_err, '\nbig+small err: ', sig_err)
-#print('geo err: ', geo_err)
-#propagating them
-A_one = b_li9 + b_n17 + b_neu + b_world + b_geo #+b_unc
+#propagating errors
+A_one = b_li9 + b_n17 + b_neu + b_world + b_geo
 dA_one = ( (li9_err)**2 + (n17_err)**2 + (neu_err)**2 + (world_err)**2 + (geo_err)**2 )**(1/2)
 C_one = s_sig ** 2
 dC_one = 2 * s_sig * sig_err
 dt_one = t_one * ( (dA_one/A_one)**2 + (2*sig_err/s_sig)**2 )**(1/2)
-#print('1dA: ', dA_one)
-#print('1dC: ', dC_one)
 print('\nDwell time, (days): ', t_one, ' +/- ', dt_one)
 
