@@ -9,7 +9,6 @@ using namespace std;
 
 void extract::Loop()
 {
-//My macro to extract the data
         TFile *f=new TFile("/path/to/heysham_2_file.root");
         TTree *tr=(TTree*)f->Get("data;1");
 
