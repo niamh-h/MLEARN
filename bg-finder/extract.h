@@ -196,9 +196,9 @@ extract::extract(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("hartlepool_1_pdf_data.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("hartlepool_1_pdf_data.root"); //or file path to one of the data files being used
       if (!f || !f->IsOpen()) {
-         f = new TFile("hartlepool_1_pdf_data.root");
+         f = new TFile("hartlepool_1_pdf_data.root"); //or file path to one of the data files being used
       }
       f->GetObject("data",tree);
 
