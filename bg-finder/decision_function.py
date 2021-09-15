@@ -33,3 +33,12 @@ plt.xlabel('Decision scores')
 plt.ylabel('Frequency (log)')
 plt.savefig("/path/to/file")
 plt.show()
+#display the number of events above 6 MeV
+a = fs.loc[fs.mc_energy > 6].shape[0]
+b = hey.loc[hey.mc_energy > 6].shape[0]
+c = tor.loc[tor.mc_energy > 6].shape[0]
+d = n17.loc[n17.mc_energy > 6].shape[0]
+e = geo.loc[geo.mc_energy > 6].shape[0]
+f = world.loc[world.mc_energy >6].shape[0]
+g = neu.loc[neu.mc_energy > 6].shape[0]
+print('li9' , a, '\nhey ', b, '\ntor ', c, '\nn17 ', d, '\ngeo ', e, '\nworld ', f, '\nneu ', g)
