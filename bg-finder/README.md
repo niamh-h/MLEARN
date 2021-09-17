@@ -1,3 +1,8 @@
+ALL INFORMATION IS IN 'Guide_to_Machine_Learning_scripts.pdf'
+
+
+***
+
 dwell_time.py : input the classified data, the size of the detector and the total MC. Specify the signal source from: heysham 2, 
                 heysham full, torness or torness+heysham 2. Outputs the daily rate of each source after classification and the time to get to 3sigma (dwell time). 
                 
