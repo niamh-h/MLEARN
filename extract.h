@@ -1,10 +1,3 @@
-//////////////////////////////////////////////////////////
-// This class has been automatically generated on
-// Mon Jul 19 14:46:24 2021 by ROOT version 6.18/05
-// from TTree data/low-energy detector triggered events
-// found on file: hartlepool_1_pdf_data.root
-//////////////////////////////////////////////////////////
-
 #ifndef extract_h
 #define extract_h
 
