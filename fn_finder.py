@@ -54,7 +54,7 @@ df7['label'] = 0
 #neutron model
 frames = [df1, df2, df3, df4, df5, df7]
 X = df6.append(frames, ignore_index=True)
-ydf = neu[['label']]
+ydf = X[['label']]
 y = ydf.to_numpy()
 y = y.flatten()
 X = X.drop(['label'], axis=1)
