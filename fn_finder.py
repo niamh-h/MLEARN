@@ -7,92 +7,107 @@ from sklearn.metrics import classification_report, plot_confusion_matrix, roc_cu
 from matplotlib import pyplot as plt
 import joblib
 import sys
+
 #organise the data from the text files into a dataset
+data1 = pd.read_csv("/path/to/heysham2_data.txt", sep=" ", header=None)
+data1.columns = ["n100", "n100_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
+                "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT">
+df1 = pd.DataFrame(data1)
+df1['label'] = 0
+
 data2 = pd.read_csv("/path/to/li9_data.txt", sep=" ", header=None)
-data2.columns = ["n9", "n9_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev", "beta_two", "beta_two_prev", "beta_three",
+data2.columns = ["n100", "n100_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev", "beta_two", "beta_two_prev", "beta_three",
                 "beta_three_prev", "beta_four", "beta_four_prev", "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT", "closestPMT_prev", "drPrevr"]
 df2 = pd.DataFrame(data2)
 df2['label'] = 0
 
 data3 = pd.read_csv("/path/to/n17_data.txt", sep=" ", header=None)
-data3.columns = ["n9", "n9_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev",  "beta_three",
+data3.columns = ["n100", "n100_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev",  "beta_three",
                 "beta_three_prev","beta_four", "beta_four_prev", "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT", "closestPMT_prev", "drPrevr"]
 df3 = pd.DataFrame(data3)
 df3['label'] = 0
 
-data5 = pd.read_csv("/path/to/world_data.txt", sep=" ", header=None)
-data5.columns = ["n9", "n9_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
+data4 = pd.read_csv("/path/to/torness_data.txt", sep=" ", header=None)
+data4.columns = ["n100", "n100_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
+                "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT", "closestPMT_prev", "drPrevr"]
+df4 = pd.DataFrame(data4)
+df4['label'] = 0
+
+data5 = pd.read_csv("path/to/world_data.txt", sep=" ", header=None)
+data5.columns = ["n100", "n100_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
                 "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT", "closestPMT_prev", "drPrevr"]
 df5 = pd.DataFrame(data5)
 df5['label'] = 0
-datat = pd.read_csv("path/to/torness_data.txt", sep=" ", header=None)
-datat.columns = ["n9", "n9_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
-                "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT", "closestPMT_prev", "drPrevr"]
-dft = pd.DataFrame(datat)
-dft['label'] = 0
-
-#datah = pd.read_csv("/path/to/heyshamfull_data.txt", sep=" ", header=None)
-#datah.columns = ["n9", "n9_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
-#                "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT", "closestPMT_prev", "drPrevr"]
-#dfh = pd.DataFrame(datah)
-#dfh['label'] = 0
 
 data6 = pd.read_csv("/path/to/neutrons_data.txt", sep=" ", header=None)
-data6.columns = ["n9", "n9_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
+data6.columns = ["n100", "n100_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
                 "beta_three_prev", "beta_four", "beta_four_prev", "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT", "closestPMT_prev", "drPrevr"]
 df6 = pd.DataFrame(data6)
 df6['label'] = 1
 
 data7 = pd.read_csv("/path/to/geoneutrinos_data.txt", sep=" ", header=None)
-data7.columns = ["n9", "n9_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
+data7.columns = ["n100", "n100_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
                 "beta_three_prev", "beta_four", "beta_four_prev", "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT", "closestPMT_prev", "drPrevr"]
 df7 = pd.DataFrame(data7)
 df7['label'] = 0
 
-data8 = pd.read_csv("/path/to/heysham2_data.txt", sep=" ", header=None)
-data8.columns = ["n9", "n9_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
-                "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT", "closestPMT_prev", "drPrevr"]
-df8 = pd.DataFrame(data8)
-df8['label'] = 0
-
 #neutron model
-frames = [df3, df2, df5, dft, df7, df8]
-neu = df6.append(frames, ignore_index=True)
-neu_labelcolumn = neu[['label']]
-neu_label = neu_labelcolumn.to_numpy()
-neu_label = neu_label.flatten()
-neu = neu.drop(['label'], axis=1)
-train_neu, test_neu, train_neulab, test_neulab = train_test_split(neu, neu_label, random_state=None, stratify=neu_label)
-neu_clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2),
+frames = [df1, df2, df3, df4, df5, df7]
+X = df6.append(frames, ignore_index=True)
+ydf = neu[['label']]
+y = ydf.to_numpy()
+y = y.flatten()
+X = X.drop(['label'], axis=1)
+train_X, test_X, train_y, test_y = train_test_split(X, y, stratify=y)
+clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2),
                                 n_estimators=100, learning_rate=0.1)
-neu_clf.fit(train_neu, train_neulab)
-neu_predictions = neu_clf.predict(test_neu)
-neu_prob = neu_clf.predict_proba(test_neu)
-neu_score = neu_clf.decision_function(test_neu)
-print(confusion_matrix(test_neulab, neu_predictions))
-disp = plot_confusion_matrix(neu_clf, test_neu, test_neulab)
-disp.figure_.suptitle("Fast Neutron finder, Heysham 2 signal (training, 22m_gdwbls)")
+clf.fit(train_X, train_y)
+predictions = clf.predict(test_X)
+prob = clf.predict_proba(test_X)
+score = clf.decision_function(test_X)
+cm = confusion_matrix(test_y,pred,labels=clf_classes_)
+print (cm)
+ConfusionMatrixDisplay.from_predictions(test_y, pred)
+plt.title('Fast Neutron Finder confusion matrix')
 plt.savefig('/path/to/file.png')
-plt.show()
-print(classification_report(test_neulab, neu_predictions))
-test_neu.loc[:,'classifier'] = neu_predictions
-neu_rows = test_neu.index
-neu_labelcolumn.index = range(len(neu_labelcolumn))
-neu_test_labels = neu_labelcolumn.iloc[neu_rows,:]
-test_neu.loc[:,'label'] = neu_test_labels
-test_neu.loc[:,'scores'] = neu_score
-neu_signal=neu_prob[:,1]
-neu_fpr, neu_tpr, ___ = roc_curve(neu_test_labels, neu_signal, pos_label=1)
-neu_auc = auc(neu_fpr, neu_tpr)
-plt.plot(neu_fpr, neu_tpr, marker=',', label='Fast Neutrons (area = {:.2f})'.format(neu_auc))
+#plt.show()
+print(classification_report(test_y, pred))
+
+test_X.loc[:,'classifier'] = pred
+rows = test_X.index
+ydf.index = range(len(ydf))
+labels = ydf.iloc[rows,:]
+test_X.loc[:,'label'] = labels
+test_X.loc[:,'scores'] = score
+signal=prob[:,1]
+fpr, tpr, _ = roc_curve(labels, signal)
+auc = auc(fpr, tpr)
+plt.plot(fpr, tpr, marker=',', label='Fast Neutrons (area = {:.2f})'.format(auc))
 
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.legend(loc='best')
-plt.title('Fast Neutron finder, Heysham 2 Signal (training, 22m_gdwbls)')
+plt.title('Fast Neutron finder roc')
 plt.savefig('/path/to/file.png')
-plt.show()
+#plt.show()
 
-test_neu.to_csv('/path/to/file.csv')
+ts = test_X.loc[(test_X.classifier==0) & (test_X.label==0)]
+tb = test_X.loc[(test_X.classifier==1) & (test_X.label==1)]
+fs = test_X.loc[(test_X.classifier==0) & (test_X.label==1)]
+fb = test_X.loc[(test_X.classifier==1) & (test_X.label==0)]
+#plot the events by their decision function score
+plt.hist(ts.scores.values.flatten(), bins=50, label='True Other', alpha=.5)
+plt.hist(tb.scores.values.flatten(), bins=50, label='True Fast Neutron', alpha=.5)
+plt.hist(fs.scores.values.flatten(), bins=50, label='False Other', alpha=.5)
+plt.hist(fb.scores.values.flatten(), bins=50, label='False Fast Neutron', alpha=.5)
+plt.yscale('log')
+plt.title('Fast Neutron Finder confidence scores')
+plt.legend(loc='best')
+plt.xlabel('Decision scores')
+plt.ylabel('Frequency (log)')
+plt.savefig("/path/to/file")
+#plt.show()
+
+test_X.to_csv('/path/to/file.csv')
 filename = '/path/to/file.sav'
-joblib.dump(neu_clf, filename)
+joblib.dump(clf, filename)
