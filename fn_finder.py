@@ -11,7 +11,7 @@ import sys
 #organise the data from the text files into a dataset
 data1 = pd.read_csv("/path/to/heysham2_data.txt", sep=" ", header=None)
 data1.columns = ["n100", "n100_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
-                "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT">
+                "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT", "closestPMT_prev", "drPrevr"]
 df1 = pd.DataFrame(data1)
 df1['label'] = 0
 
