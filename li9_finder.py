@@ -34,7 +34,7 @@ df4['label'] = 0
 
 data5 = pd.read_csv("/path/to/world_data.txt", sep=" ", header=None)
 data5.columns = ["n100", "n100_prev", "dt_prev_us", "inner_hit", "inner_hit_prev", "beta_one", "beta_one_prev","beta_two", "beta_two_prev", "beta_three",
-                "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT" , "closestPMT_prev",  "drPrevr"]]
+                "beta_three_prev", "beta_four", "beta_four_prev",  "beta_five", "beta_five_prev", "beta_six", "beta_six_prev", "good_pos", "good_pos_prev", "closestPMT" , "closestPMT_prev",  "drPrevr"]
 df5 = pd.DataFrame(data5)
 df5['label'] = 0
 
@@ -47,7 +47,7 @@ df7['label'] = 0
 #li9 model
 frames = [df1, df3, df4, df5, df7]
 X = df2.append(frames, ignore_index=True)
-ydf = li9[['label']]
+ydf = X[['label']]
 y = ydf.to_numpy()
 y = y.flatten()
 X = X.drop(['label'], axis=1)
