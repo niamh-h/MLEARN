@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import joblib
 from matplotlib import pyplot as plt
-from sklearn.metrics import plot_roc_curve, confusion_matrix, ConfusionMatrixDisplay, classification_report, roc_auc_score, auc
+from sklearn.metrics import roc_curve, confusion_matrix, ConfusionMatrixDisplay, classification_report, roc_auc_score, auc
 import sys
 #load the model
 clf = joblib.load('/path/to/model.sav')
