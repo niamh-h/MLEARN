@@ -62,7 +62,7 @@ train_X, test_X, train_y, test_y = train_test_split(X, y, stratify=y)
 clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2),
                                 n_estimators=100, learning_rate=0.1)
 clf.fit(train_X, train_y)
-predictions = clf.predict(test_X)
+pred = clf.predict(test_X)
 prob = clf.predict_proba(test_X)
 score = clf.decision_function(test_X)
 cm = confusion_matrix(test_y,pred,labels=clf_classes_)
