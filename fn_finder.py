@@ -25,7 +25,6 @@ for f in filenames:
     d[c] = data.arrays(['n100', 'n100_prev', 'inner_hit', 'inner_hit_prev', 'dt_prev_us', 'beta_one', 'beta_one_prev',
                          'beta_two', 'beta_two_prev', 'beta_three', 'beta_three_prev', 'beta_four', 'beta_four_prev',
                          'beta_five', 'beta_five_prev', 'beta_six', 'beta_six_prev', 'drPrevr'], '(n100>0)&(n100_prev>0)',library='pd')
-
 for x, y in d.items():
   if (x == 'fn'):
     y['label'] = 1
@@ -64,7 +63,8 @@ print('Creating Figures...')
 ConfusionMatrixDisplay.from_predictions(test_y, pred)
 plt.title("Fast Neutron finder, training")
 plt.savefig('cm_fnfinder_training.pdf')
-#plt.show()
+plt.show(block=False)
+plt.pause(3)
 plt.clf()
 
 test_X.loc[:,'classifier'] = pred
@@ -83,7 +83,8 @@ plt.ylabel('True Positive Rate')
 plt.legend(loc='best')
 plt.title('Fast Neutron finder, training')
 plt.savefig('roc_fnfinder_training.pdf')
-#plt.show()
+plt.show(block=False)
+plt.pause(3)
 plt.clf()
 
 ts = test_X.loc[(test_X.classifier==0) & (test_X.label==0)]
@@ -101,5 +102,6 @@ plt.legend(loc='best')
 plt.xlabel('Decision scores')
 plt.ylabel('Frequency (log)')
 plt.savefig('df_fnfinder_training.pdf')
-#plt.show()
+plt.show(block=False)
+plt.pause(3)
 plt.clf()
