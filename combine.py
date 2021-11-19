@@ -58,7 +58,7 @@ for x, y in d.items():
     y['source'] = 9
   else:
     print('Please rename your root files!')
-    break
+    sys.exit()
 
 #FN model
 
@@ -129,8 +129,6 @@ plt.clf()
 fn.loc[:,'fn_scores'] = fn_scores
 fn.loc[:,'prob_fn'] = fn_prob[:,1]
 fn.loc[:,'prob_otherfn'] = fn_prob[:,0]
-fn.loc[:,'mc_energy'] = fn_en
-print(fn)
 fn.to_csv('/path/to/file.csv')
 '''
 li9 = fn.loc[fn.fn_classifier==0] #keep only what fn_finder leaves
@@ -184,7 +182,8 @@ li9.loc[:,'label'] = li9_lab
 li9.loc[:,'li9_scores'] = li9_scores
 li9.loc[:,'prob_li9'] = li9_prob[:,1]
 li9.loc[:,'prob_otherli9'] = li9_prob[:,0]
-
+li9.to_csv('li9run_classified_data.csv')
+       
 ts = li9.loc[(li9.li9_classifier==0) & (li9.label==0)]
 tb = li9.loc[(li9.li9_classifier==1) & (li9.label==1)]
 fs = li9.loc[(li9.li9_classifier==0) & (li9.label==1)]
