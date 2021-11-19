@@ -104,12 +104,13 @@ plt.clf()
 
 fn.loc[:,'source'] = fn_source
 fn.loc[:,'label'] = fn_lab
-fn.loc[:,'fn_classifier'] = fn_pred
-
-ts = fn.loc[(fn.fn_classifier==0) & (fn.label==0)]
-tb = fn.loc[(fn.fn_classifier==1) & (fn.label==1)]
-fs = fn.loc[(fn.fn_classifier==0) & (fn.label==1)]
-fb = fn.loc[(fn.fn_classifier==1) & (fn.label==0)]
+fn.loc[:,'classifier'] = fn_pred
+fn.loc[:,'scores'] = fn_scores
+       
+ts = fn.loc[(fn.classifier==0) & (fn.label==0)]
+tb = fn.loc[(fn.classifier==1) & (fn.label==1)]
+fs = fn.loc[(fn.classifier==0) & (fn.label==1)]
+fb = fn.loc[(fn.classifier==1) & (fn.label==0)]
 #plot the events by their decision function score
 plt.hist(ts.scores.values.flatten(), bins=50, label='True Other', alpha=.5)
 plt.hist(tb.scores.values.flatten(), bins=50, label='True Fast Neutron', alpha=.5)
@@ -126,12 +127,11 @@ plt.pause(3)
 plt.clf()
 
 '''
-fn.loc[:,'fn_scores'] = fn_scores
 fn.loc[:,'prob_fn'] = fn_prob[:,1]
 fn.loc[:,'prob_otherfn'] = fn_prob[:,0]
 fn.to_csv('/path/to/file.csv')
 '''
-li9 = fn.loc[fn.fn_classifier==0] #keep only what fn_finder leaves
+li9 = fn.loc[fn.classifier==0] #keep only what fn_finder leaves
 li9.label.replace(to_replace=1,value=0,inplace=True) #replace labels as 0
 li9.loc[li9.source==2, 'label'] = 1 #relabel li9 as 1
 print(li9)
@@ -143,7 +143,7 @@ li9_lab = li9_lab.flatten()
 li9_source = li9['source']
 li9_source = li9_source.to_numpy()
 li9_source = li9_source.flatten()
-li9 = li9.drop(['label', 'source', 'fn_classifier'],axis=1)
+li9 = li9.drop(['label', 'source', 'classifier', 'scores'],axis=1)
 print ('\n\nNew data (no fast neutrons):')
 print(li9)
 print ('Applying Lithium-9 model...')
@@ -176,18 +176,18 @@ plt.show(bloack=False)
 plt.pause(3)
 plt.clf()
 
-li9.loc[:,'li9_classifier'] = li9_pred
+li9.loc[:,'classifier'] = li9_pred
 li9.loc[:,'source'] = li9_source
 li9.loc[:,'label'] = li9_lab
-li9.loc[:,'li9_scores'] = li9_scores
+li9.loc[:,'scores'] = li9_scores
 li9.loc[:,'prob_li9'] = li9_prob[:,1]
 li9.loc[:,'prob_otherli9'] = li9_prob[:,0]
 li9.to_csv('li9run_classified_data.csv')
        
-ts = li9.loc[(li9.li9_classifier==0) & (li9.label==0)]
-tb = li9.loc[(li9.li9_classifier==1) & (li9.label==1)]
-fs = li9.loc[(li9.li9_classifier==0) & (li9.label==1)]
-fb = li9.loc[(li9.li9_classifier==1) & (li9.label==0)]
+ts = li9.loc[(li9.classifier==0) & (li9.label==0)]
+tb = li9.loc[(li9.classifier==1) & (li9.label==1)]
+fs = li9.loc[(li9.classifier==0) & (li9.label==1)]
+fb = li9.loc[(li9.classifier==1) & (li9.label==0)]
 #plot the events by their decision function score
 plt.hist(ts.scores.values.flatten(), bins=50, label='True Other', alpha=.5)
 plt.hist(tb.scores.values.flatten(), bins=50, label='True Lithium-9', alpha=.5)
