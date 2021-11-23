@@ -231,6 +231,6 @@ A = b_li9 + b_n17 + b_neu + b_world + b_geo
 dA = ( (li9_err)**2 + (n17_err)**2 + (neu_err)**2 + (world_err)**2 + (geo_err)**2 )**(1/2)
 C = s_sig ** 2
 dC = 2 * s_sig * sig_err
-dt = t * ( (dA/A)**2 + (2*sig_err/s_sig)**2 )**(1/2)
+dt = t * ( (dA/A)**2 + (dC/C)**2 )**(1/2)
 print('\nDwell time, (days): ', t, ' +/- ', dt)
 
