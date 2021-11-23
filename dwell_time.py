@@ -206,7 +206,7 @@ print('\n\nLithium rate: ', b_li9, '\nNitrogen rate: ', b_n17, '\nNeutrons rate:
 print('Signal rate: ', s_sig)
 
 #put into the significance equation
-t_one = (9 * (b_li9 + b_n17 + b_neu + b_world + b_geo))/(s_sig)**2
+t = (9 * (b_li9 + b_n17 + b_neu + b_world + b_geo))/(s_sig)**2
 print('Dwell Time correlated, both cores (days): ', t_one)
 #errors
 #Binomial error on efficiency for each bg and signal is 1/N * (events(1-events/total))**1/2
@@ -227,10 +227,10 @@ geo_err = geo_eff_err * r_geo
 sig_err = sig_eff_err * r_sig
 
 #propagating errors
-A_one = b_li9 + b_n17 + b_neu + b_world + b_geo
-dA_one = ( (li9_err)**2 + (n17_err)**2 + (neu_err)**2 + (world_err)**2 + (geo_err)**2 )**(1/2)
-C_one = s_sig ** 2
-dC_one = 2 * s_sig * sig_err
-dt_one = t_one * ( (dA_one/A_one)**2 + (2*sig_err/s_sig)**2 )**(1/2)
-print('\nDwell time, (days): ', t_one, ' +/- ', dt_one)
+A = b_li9 + b_n17 + b_neu + b_world + b_geo
+dA = ( (li9_err)**2 + (n17_err)**2 + (neu_err)**2 + (world_err)**2 + (geo_err)**2 )**(1/2)
+C = s_sig ** 2
+dC = 2 * s_sig * sig_err
+dt = t * ( (dA/A)**2 + (2*sig_err/s_sig)**2 )**(1/2)
+print('\nDwell time, (days): ', t, ' +/- ', dt)
 
